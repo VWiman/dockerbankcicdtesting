@@ -5,30 +5,29 @@ on:
     branches:
       - main
 
-  jobs:
-
+jobs:
   test:
-      name: Test with RTL
-      runs-on: ubuntu-latest
+    name: Test with RTL
+    runs-on: ubuntu-latest
 
-      steps:
-        - name: Check out Repo
-          uses: actions/checkout@v4
+    steps:
+      - name: Check out Repo
+        uses: actions/checkout@v4
 
-        - name: Set up Node.js
-          uses: actions/setup-node@v4
-          with:
-            node-version: "20"
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
 
-        - name: Install Dependencies
-          working-directory: ./frontend
-          run: npm install
+      - name: Install Dependencies
+        working-directory: ./frontend
+        run: npm install
 
-        - name: Run Tests
-          working-directory: ./frontend
-          run: npm run test:ci
-          env:
-            CI: true
+      - name: Run Tests
+        working-directory: ./frontend
+        run: npm run test:ci
+        env:
+          CI: true
 
   deployment:
     name: Deploy
@@ -58,7 +57,7 @@ on:
           port: 22
           source: "."
           target: "/home/ubuntu/dockerbankcicd"
-          
+
       - name: Execute deployment script
         uses: appleboy/ssh-action@v1.0.3
         with:
